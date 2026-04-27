@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const instance = axios.create({
+export const instance = axios.create({
     baseURL: "/api",
     withCredentials: true,
     headers: {
@@ -12,5 +12,3 @@ instance.interceptors.response.use(
     response => response.data,
     error => Promise.reject(error),
 )
-
-export default instance

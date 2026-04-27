@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import TelegramLoginButton from "../components/TelegramLoginButton.vue";
+const telegramLogin = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
 </script>
 
 <template>
   <div class="container">
     <h1 class="heading">Login</h1>
     <p class="description">You can login with Telegram</p>
-    <TelegramLoginButton telegram-login="russiancitiesgamebot" mode="" />
+    <TelegramLoginButton :telegram-login="telegramLogin" mode="" />
   </div>
 </template>
 
