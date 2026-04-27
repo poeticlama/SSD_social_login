@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  font-family: Montserrat, sans-serif;
+  background: #FFFFFF;
+  background: linear-gradient(93deg, rgba(255, 255, 255, 1) 0%, rgb(204, 232, 255) 48%, rgba(255, 255, 255, 1) 100%);
+  color: #23487e;
+}
+
+p {
+  color: #5f94e1;
+}
+
+body {
+  margin: 0;
+}
