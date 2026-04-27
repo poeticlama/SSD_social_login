@@ -3,7 +3,7 @@
 :root {
   font-family: Montserrat, sans-serif;
   background: #FFFFFF;
-  background: linear-gradient(93deg, rgba(255, 255, 255, 1) 0%, rgb(204, 232, 255) 48%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(93deg, rgb(204, 232, 255) 0%, rgba(255, 255, 255, 1) 48%, rgb(204, 232, 255) 100%);
   color: #23487e;
 }
 

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-
+import TelegramLoginButton from "../components/TelegramLoginButton.vue";
 </script>
 
 <template>
   <div class="container">
     <h1 class="heading">Login</h1>
     <p class="description">You can login with Telegram</p>
+    <TelegramLoginButton telegram-login="russiancitiesgamebot" mode="" />
   </div>
 </template>
 
@@ -25,6 +26,7 @@
 
 .description {
   font-size: 1.1vw;
-  margin-top: 5vw;
+  margin-top: 4vw;
+  margin-bottom: 2vw;
 }
 </style>
