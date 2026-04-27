@@ -1,10 +1,10 @@
-import { instance as axios } from "../src/axios"
+import { instance as axios } from "../axios.ts"
 import type {
     CreateNoteRequest,
     CreateNoteResponse,
     DeleteNoteResponse,
     NotesResponse,
-} from "../src/types"
+} from "../types.ts"
 
 export const notesApi = {
     getNotes() {

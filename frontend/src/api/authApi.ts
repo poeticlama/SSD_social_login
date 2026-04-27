@@ -1,5 +1,5 @@
-import { instance as axios } from "../src/axios"
-import type {AuthResponse, LoginEventsResponse, LogoutResponse, TelegramUser,} from "../src/types.ts"
+import { instance as axios } from "../axios"
+import type { AuthResponse, LoginEventsResponse, LogoutResponse, TelegramUser } from "../types"
 
 export const authApi = {
     loginWithTelegram(payload: TelegramUser) {
@@ -18,3 +18,4 @@ export const authApi = {
         return axios.get<unknown, LoginEventsResponse>("/auth/login-events")
     },
 }
+
