@@ -71,3 +71,50 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+  codeql:
+    name: CodeQL Analysis 
+    runs-on: ubuntu:latest
+    permissions:
+      security-events: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript, typescript
+          queries: security-ectended,security-and-quality
+      
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analysis@v3
+
+  npm-audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.json
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Audit backend dependencies
+        working-directory: ./backend
+        run: |
+          npm ci
+          npm audit --audit-level=high
+        continue-on-error: true
+
+      - name: Audit frontend dependencies
+        working-directory: ./frontend
+        run: |
+          npm ci
+          npm audit --audit-level=high
+        continue-on-error: true
