@@ -90,7 +90,7 @@ jobs:
           queries: security-ectended,security-and-quality
       
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analysis@v3
+        uses: github/codeql-action/analyze@v3
 
   npm-audit:
     name: Dependency audit
