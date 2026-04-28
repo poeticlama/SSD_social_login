@@ -17,6 +17,8 @@ const eventsError = ref<string | null>(null);
 const isAddingNote = ref(false);
 const isSavingNote = ref(false);
 const createNoteError = ref<string | null>(null);
+const deleteNoteError = ref<string | null>(null);
+const deletingNoteId = ref<number | null>(null);
 const newNoteTitle = ref("");
 const newNoteContent = ref("");
 
@@ -78,6 +80,19 @@ const handleCreateNote = async () => {
     createNoteError.value = "Failed to add note.";
   } finally {
     isSavingNote.value = false;
+  }
+};
+
+const handleDeleteNote = async (noteId: number) => {
+  deleteNoteError.value = null;
+  deletingNoteId.value = noteId;
+  try {
+    await notesApi.deleteNote(noteId);
+    await loadNotes();
+  } catch {
+    deleteNoteError.value = "Failed to delete note.";
+  } finally {
+    deletingNoteId.value = null;
   }
 };
 
@@ -171,12 +186,23 @@ onMounted(async () => {
         <li v-for="note in notes" :key="note.id" class="note-item">
           <div class="note-header">
             <h4>{{ note.title }}</h4>
-            <time :datetime="note.createdAt">{{ formatDate(note.createdAt) }}</time>
+            <p class="note-content">{{ note.content }}</p>
           </div>
-          <p class="note-content">{{ note.content }}</p>
+          <div class="note-meta">
+            <time :datetime="note.createdAt">{{ formatDate(note.createdAt) }}</time>
+            <button
+                class="danger"
+                type="button"
+                :disabled="deletingNoteId === note.id"
+                @click="handleDeleteNote(note.id)"
+            >
+              {{ deletingNoteId === note.id ? "Deleting..." : "Delete" }}
+            </button>
+          </div>
         </li>
       </ul>
       <p v-else class="muted">No notes yet.</p>
+      <p v-if="deleteNoteError" class="muted">{{ deleteNoteError }}</p>
     </section>
 
     <section class="panel">
@@ -224,6 +250,10 @@ p {
   margin: 0;
 }
 
+time {
+  font-size: 0.8rem;
+}
+
 .logout-container {
   display: flex;
   flex-direction: column;
@@ -245,7 +275,7 @@ p {
 }
 
 .me-info {
-  margin-left: 3rem;
+  margin-left: 5rem;
   margin-bottom: 2rem;
 }
 
@@ -297,6 +327,8 @@ p {
 }
 
 .note-item {
+  display: flex;
+  justify-content: space-between;
   border: 1px solid #b4d3f3;
   border-radius: 1rem;
   padding: 0.5rem 2rem 2rem;
@@ -341,12 +373,25 @@ p {
   gap: 0.8rem;
 }
 
-.note-header,
+.note-header {
+  width: 60%;
+}
+
 .event-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 1rem;
+}
+
+.note-meta {
+  display: flex;
+  padding-top: 1rem;
+  color: #6596c8;
+  flex-direction: column;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.6rem;
 }
 
 .note-content {
@@ -375,5 +420,23 @@ p {
 .muted {
   color: #6a6a6a;
   margin-top: 1rem
+}
+
+.danger {
+  cursor: pointer;
+  border: 1px solid #ef4444;
+  background: #ffffff;
+  color: #b42318;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+}
+
+.danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.danger:hover {
+  background: #fef2f2;
 }
 </style>
