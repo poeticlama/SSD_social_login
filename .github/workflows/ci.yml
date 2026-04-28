@@ -30,7 +30,7 @@ jobs:
       - name: Generate Prisma client
         run: npx prisma generate
         env: 
-          DATABASE_UR: "file:./test.db"
+          DATABASE_URL: "file:./test.db"
 
       - name: Run tests
         run: npm test
@@ -47,7 +47,7 @@ jobs:
 
     defaults: 
       run:
-        working-directory: ./frontend_tests
+        working-directory: ./frontend
 
     steps:
       - name: Checkout repository
