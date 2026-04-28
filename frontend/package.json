@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 80",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts,.tsx,.vue,.js,.jsx",
+    "lint:fix": "eslint src --ext .ts,.tsx,.vue,.js,.jsx --fix"
   },
   "dependencies": {
     "axios": "^1.15.2",
@@ -15,10 +19,18 @@
   },
   "devDependencies": {
     "@types/node": "^24.12.2",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-vue": "^6.0.6",
+    "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.9.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "jsdom": "^25.0.1",
     "typescript": "~6.0.2",
     "vite": "^8.0.10",
+    "vitest": "^3.1.0",
+    "vue-eslint-parser": "^9.4.2",
     "vue-tsc": "^3.2.7"
   }
 }

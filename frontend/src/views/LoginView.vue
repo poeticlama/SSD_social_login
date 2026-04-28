@@ -52,12 +52,34 @@ onMounted(async () => {
 
 <template>
   <div class="container">
-    <h1 class="heading">Login</h1>
-    <p class="description">You can login with Telegram</p>
-    <p v-if="isAuthChecking" class="status">Checking your session...</p>
-    <p v-if="isLoading" class="status">Signing you in...</p>
-    <p v-if="errorMessage" class="status status-error">{{ errorMessage }}</p>
-    <p v-if="isTelegramConfigMissing" class="status status-error">
+    <h1 class="heading">
+      Login
+    </h1>
+    <p class="description">
+      You can login with Telegram
+    </p>
+    <p
+      v-if="isAuthChecking"
+      class="status"
+    >
+      Checking your session...
+    </p>
+    <p
+      v-if="isLoading"
+      class="status"
+    >
+      Signing you in...
+    </p>
+    <p
+      v-if="errorMessage"
+      class="status status-error"
+    >
+      {{ errorMessage }}
+    </p>
+    <p
+      v-if="isTelegramConfigMissing"
+      class="status status-error"
+    >
       Telegram login is not configured. Set <code>VITE_TELEGRAM_BOT_TOKEN</code>.
     </p>
     <TelegramLoginButton

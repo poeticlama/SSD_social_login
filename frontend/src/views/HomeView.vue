@@ -125,18 +125,33 @@ onMounted(async () => {
   <header>
     <h2>Hello, {{ me?.displayName ?? "there" }}!</h2>
     <div class="logout-container">
-      <a class="logout" type="button" @click="handleLogout">Logout</a>
+      <a
+        class="logout"
+        type="button"
+        @click="handleLogout"
+      >Logout</a>
     </div>
   </header>
   <aside class="me-info">
-    <div v-if="me" class="profile">
-      <img :src="me?.avatarUrl" :alt="me?.displayName" />
+    <div
+      v-if="me"
+      class="profile"
+    >
+      <img
+        :src="me?.avatarUrl"
+        :alt="me?.displayName"
+      >
       <div class="name">
         <h3>{{ me?.displayName }}</h3>
         <p>@{{ me?.username }}</p>
       </div>
     </div>
-    <p v-else class="muted">Loading profile...</p>
+    <p
+      v-else
+      class="muted"
+    >
+      Loading profile...
+    </p>
   </aside>
   <main class="content">
     <section class="panel">
@@ -150,17 +165,20 @@ onMounted(async () => {
           {{ isAddingNote ? "Hide" : "Add notes" }}
         </a>
       </div>
-      <div v-if="isAddingNote" class="note-form">
+      <div
+        v-if="isAddingNote"
+        class="note-form"
+      >
         <input
           v-model="newNoteTitle"
           type="text"
           placeholder="Title"
-        />
+        >
         <textarea
           v-model="newNoteContent"
           rows="4"
           placeholder="Write your note..."
-        ></textarea>
+        />
         <div class="form-actions">
           <button
             class="primary"
@@ -178,49 +196,112 @@ onMounted(async () => {
             Cancel
           </button>
         </div>
-        <p v-if="createNoteError" class="muted">{{ createNoteError }}</p>
+        <p
+          v-if="createNoteError"
+          class="muted"
+        >
+          {{ createNoteError }}
+        </p>
       </div>
-      <p v-if="isLoadingNotes" class="muted">Loading notes...</p>
-      <p v-else-if="notesError" class="muted">{{ notesError }}</p>
-      <ul v-else-if="notes.length" class="list">
-        <li v-for="note in notes" :key="note.id" class="note-item">
+      <p
+        v-if="isLoadingNotes"
+        class="muted"
+      >
+        Loading notes...
+      </p>
+      <p
+        v-else-if="notesError"
+        class="muted"
+      >
+        {{ notesError }}
+      </p>
+      <ul
+        v-else-if="notes.length"
+        class="list"
+      >
+        <li
+          v-for="note in notes"
+          :key="note.id"
+          class="note-item"
+        >
           <div class="note-header">
             <h4>{{ note.title }}</h4>
-            <p class="note-content">{{ note.content }}</p>
+            <p class="note-content">
+              {{ note.content }}
+            </p>
           </div>
           <div class="note-meta">
             <time :datetime="note.createdAt">{{ formatDate(note.createdAt) }}</time>
             <button
-                class="danger"
-                type="button"
-                :disabled="deletingNoteId === note.id"
-                @click="handleDeleteNote(note.id)"
+              class="danger"
+              type="button"
+              :disabled="deletingNoteId === note.id"
+              @click="handleDeleteNote(note.id)"
             >
               {{ deletingNoteId === note.id ? "Deleting..." : "Delete" }}
             </button>
           </div>
         </li>
       </ul>
-      <p v-else class="muted">No notes yet.</p>
-      <p v-if="deleteNoteError" class="muted">{{ deleteNoteError }}</p>
+      <p
+        v-else
+        class="muted"
+      >
+        No notes yet.
+      </p>
+      <p
+        v-if="deleteNoteError"
+        class="muted"
+      >
+        {{ deleteNoteError }}
+      </p>
     </section>
 
     <section class="panel">
-      <h3 class="events-panel-header">Login events</h3>
-      <p v-if="isLoadingEvents" class="muted">Loading login events...</p>
-      <p v-else-if="eventsError" class="muted">{{ eventsError }}</p>
-      <ul v-else-if="loginEvents.length" class="list">
-        <li v-for="event in loginEvents" :key="event.id" class="event-item">
+      <h3 class="events-panel-header">
+        Login events
+      </h3>
+      <p
+        v-if="isLoadingEvents"
+        class="muted"
+      >
+        Loading login events...
+      </p>
+      <p
+        v-else-if="eventsError"
+        class="muted"
+      >
+        {{ eventsError }}
+      </p>
+      <ul
+        v-else-if="loginEvents.length"
+        class="list"
+      >
+        <li
+          v-for="event in loginEvents"
+          :key="event.id"
+          class="event-item"
+        >
           <div class="event-header">
-            <span class="event-status" :class="{ success: event.success, failure: !event.success }">
+            <span
+              class="event-status"
+              :class="{ success: event.success, failure: !event.success }"
+            >
               {{ event.success ? "Success" : "Failed" }}
             </span>
             <time :datetime="event.createdAt">{{ formatDate(event.createdAt) }}</time>
           </div>
-          <p class="event-meta">{{ event.provider }} · {{ event.reason }}</p>
+          <p class="event-meta">
+            {{ event.provider }} · {{ event.reason }}
+          </p>
         </li>
       </ul>
-      <p v-else class="muted">No login events yet.</p>
+      <p
+        v-else
+        class="muted"
+      >
+        No login events yet.
+      </p>
     </section>
   </main>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div ref='telegram'></div>
+  <div ref="telegram" />
 </template>
 
 <script setup lang="ts">
@@ -36,7 +36,8 @@ const props = defineProps({
     default: true
   },
   radius: {
-    type: String
+    type: String,
+    default: ''
   }
 })
 
@@ -64,7 +65,11 @@ onMounted(() => {
   if (props.radius) script.setAttribute('data-radius', props.radius)
 
   if (props.mode === 'callback') {
-    (window as any).onTelegramAuth = onTelegramAuth
+    const windowWithTelegramAuth = window as Window & {
+      onTelegramAuth?: (user: TelegramUser) => void
+    }
+
+    windowWithTelegramAuth.onTelegramAuth = onTelegramAuth
     script.setAttribute('data-onauth', 'window.onTelegramAuth(user)')
   } else {
     script.setAttribute('data-auth-url', props.redirectUrl)

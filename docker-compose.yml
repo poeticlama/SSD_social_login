@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: "file:./dev.db"
+      PORT: "3000"
+      FRONTEND_ORIGIN: "${FRONTEND_ORIGIN}"
+      SESSION_SECRET: "${SESSION_SECRET}"
+      TELEGRAM_BOT_TOKEN: "${TELEGRAM_BOT_TOKEN}"
+    volumes:
+      - backend-db:/app/dev.db
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+    environment:
+      VITE_API_PROXY_TARGET: "http://backend:3000"
+    depends_on:
+      - backend
+
+volumes:
+  backend-db:
